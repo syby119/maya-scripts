@@ -1,0 +1,100 @@
+{
+    "setting": {
+        "result": "C:/Users/syby119/Desktop/batch_render/true_scenes",
+        "step": 1,
+        "digits": 4,
+        "resolution": {
+            "width": 800,
+            "height": 900
+        },
+        "sample": {
+            "camera": 4,
+            "diffuse": 3,
+            "specular": 2,
+            "transmission": 2,
+            "volumnIndirect": 2
+        }
+    },
+    "obstacles": [
+        {
+            "path": "C:/Users/syby119/Desktop/batch_render/obstacle",
+            "padding": 4,
+            "subdivision": true,
+            "material": {
+                "type": "lambert",
+                "color": [0.8, 0.72, 0.64],
+                "transparency": [0.0, 0.0, 0.0],
+                "ambientColor": [0.0, 0.0, 0.0],
+                "incandescence": [0.0, 0.0, 0.0],
+                "bumpMapping": "",
+                "diffuse": 0.8,
+                "translucence": 0.0,
+                "translucenceDepth": 0.5,
+                "translucenceFocus": 0.5
+            }
+        }
+    ],
+    "clothes": [
+        {
+            "path": "C:/Users/syby119/Desktop/batch_render/ground_truth",
+            "padding": 4,
+            "subdivision": true,
+            "material": {
+                "type": "lambert",
+                "color": [0.4, 0.667, 0.8],
+                "transparency": [0.0, 0.0, 0.0],
+                "ambientColor": [0.0, 0.0, 0.0],
+                "incandescence": [0.0, 0.0, 0.0],
+                "bumpMapping": "",
+                "diffuse": 0.8,
+                "translucence": 0.0,
+                "translucenceDepth": 0.5,
+                "translucenceFocus": 0.5
+            }
+        }
+    ],
+    "ground": {
+        "translate": [0.0, -0.929, -1.017],
+        "rotate": [0.0, 0.0, 0.0],
+        "material": {
+            "type": "lambert",
+            "color": [1.0, 1.0, 1.0],
+            "transparency": [0.0, 0.0, 0.0],
+            "ambientColor": [0.0, 0.0, 0.0],
+            "incandescence": [0.0, 0.0, 0.0],
+            "bumpMapping": "",
+            "diffuse": 0.8,
+            "translucence": 0.0,
+            "translucenceDepth": 0.5,
+            "translucenceFocus": 0.5
+        }
+    },
+    "lights": [
+        {
+            "type": "areaLight",
+            "translate": [-2.498, 2.560, 3.011],
+            "rotate": [80.389, -72.699, -138.731],
+            "scale": [1.0, 1.0, 1.0],
+            "intensity": 1.0,
+            "exposure": 5.0,
+            "color": [1.0, 1.0, 1.0],
+            "followObstacle": false
+        },
+        {
+            "type": "skyDomeLight",
+            "translate": [0.0, 0.0, 0.0],
+            "rotate": [0.0, 0.0, 0.0],
+            "scale": [1.0, 1.0, 1.0],
+            "intensity": 1.0,
+            "exposure": 1.0,
+            "color": "C:/Users/syby119/Desktop/batch_render/sky_ramp.png",
+            "followObstacle": false
+        }
+    ],
+    "camera": {
+        "translate": [0.011, 1.363, 3.120],
+        "rotate": [-25.0, 0.0, 0.0],
+        "focalLength": 67.177,
+        "followObstacle": false
+    }
+}

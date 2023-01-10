@@ -1,7 +1,7 @@
 # @author: Yun Yang
 # @prerequite: Maya 2022
 # @description: 
-#   This script process cloth models by
+#   This script process cloth models for foreground rendering by
 #   + assemble different parts of the cloth with the same frame index into one cloth file
 #   + create materials for each cloth parts
 #   + save the result as .mb file
@@ -38,7 +38,7 @@ def create_texture_file_node(image_filepath:str):
     return fileNode
 
 
-def createAiStandardSurfaceMaterial(config):
+def create_ai_standard_surface_material(config):
     """
     @description:
         create aiStandardSurface material node in Maya by the config
@@ -181,7 +181,7 @@ def createAiStandardSurfaceMaterial(config):
     return shader
 
 
-def assignMaterial(obj: str, material: str):
+def assign_material(obj: str, material: str):
     """
     @description:
         assign the material to the object
@@ -207,7 +207,7 @@ def process_cloth(input_dir:str, filename:str, material:str):
     clothShape = cmds.ls("%s:*" % namespace, exactType="mesh")[0]
     cloth = cmds.listRelatives(clothShape, parent=True)
         
-    assignMaterial(cloth, material)
+    assign_material(cloth, material)
     cmds.setAttr("%s.%s"%(clothShape, "aiSubdivType"), 1)
     cmds.setAttr("%s.%s"%(clothShape, "aiSubdivIterations"), 2)
 
@@ -304,8 +304,8 @@ if __name__ == "__main__":
     cmds.file(new=True, force=True)
     
     cloth_materials = [
-        # createAiStandardSurfaceMaterial(mtl_configs["red"]),
-        createAiStandardSurfaceMaterial(mtl_configs["texture"])
+        # create_ai_standard_surface_material(mtl_configs["red"]),
+        create_ai_standard_surface_material(mtl_configs["texture"])
     ]
     
     
