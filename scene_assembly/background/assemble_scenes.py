@@ -258,7 +258,7 @@ def assignMaterial(obj: str, material: str):
 
 
 if __name__ == "__main__":
-    config_path = "E:/cloth_render/andy_tshirt/scene_config.json"
+    config_path = "C:/Users/87979/Desktop/NerualCloth/codes/0-maya-scripts/scene_assembly/background/scene_config.json"
 
     cmds.file(new=True, force=True)
 

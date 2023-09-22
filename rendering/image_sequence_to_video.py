@@ -12,8 +12,10 @@ import random
 
 if __name__ == "__main__":
     workDir = os.path.dirname(os.path.abspath(__file__))
-    base = os.path.join(workDir, "save-zhijiang")
-    target = os.path.join(workDir, "video-zhijiang")
+    
+    workDir = "C:/Users/87979/Desktop/NerualCloth/codes/VirtualBones/out"
+    base = os.path.join(workDir, "outPicture")
+    target = workDir
 
     if not os.path.exists(target):
         os.mkdir(target)
@@ -33,5 +35,5 @@ if __name__ == "__main__":
             imgName = os.path.join(base, f)
             frame = cv2.imread(imgName)
             videoWriter.write(frame)
-
+    print("----------------video saved------------------")
     videoWriter.release()

@@ -4,11 +4,77 @@
 #   This script transforms mixamo fbx to obj sequences
 #   One should select the transform that is skined, and run the script
 
-
-import maya.cmds as cmds
 import itertools
 import os
 import sys
+
+
+
+import maya.cmds as cmds
+
+def startFromTPose():
+    joints = list(set(cmds.ls(type='joint')))
+    print("joint num: %d"%(len(joints)))
+    assert(len(joints) > 24)
+
+    # 获取当前动画的起始帧和结束帧
+    start_frame = cmds.playbackOptions(query=True, minTime=True)
+    end_frame = cmds.playbackOptions(query=True, maxTime=True)
+
+    cmds.select(joints)
+
+    # 增加动画长度20帧
+    new_end_frame = end_frame + 20
+    cmds.playbackOptions(edit=True, maxTime=new_end_frame)
+
+    # 后移所有物体的动画20帧
+    for joint in joints:
+        cmds.select(joint)
+        cmds.keyframe(relative=True, timeChange=20)  # 所有关键帧时间后移20帧
+
+    cmds.currentTime(0, edit=True)  # 将当前时间重置回0帧
+
+    for obj in joints:
+        cmds.setKeyframe(time=0)
+        cmds.setKeyframe(obj, attribute='rotateX',value = 0)
+        cmds.setKeyframe(obj, attribute='rotateY',value = 0)
+        cmds.setKeyframe(obj, attribute='rotateZ',value = 0)
+    
+    for joint in joints:
+        translation = cmds.xform(joint, query=True, translation=True, worldSpace=True)
+        print("----------joint")
+    cmds.select(joints)
+
+
+startFromTPose()
+
+def writeTranform(FilePath = "C:/Users/87979/Desktop/transform.npz"):
+    import numpy as np
+    import maya.cmds as cmds
+
+    joints = list(set(cmds.ls(type='joint')))
+    print("joint num: %d"%(len(joints)))
+    assert(len(joints) > 24)
+    
+    np.matmul()
+    
+    for joint in joints:
+        parent = cmds.listRelatives(joint,parent=True, type='joint')
+        if parent is None:
+            rootJoint = joint
+
+    def print_joint_hierarchy(joint_name, level=0):
+        print("  " * level + joint_name)
+        children = cmds.listRelatives(joint_name,children=True, type='joint')
+        if children is not None:
+            for child_joint in children:
+                print_joint_hierarchy(child_joint, level + 1)
+    print_joint_hierarchy(rootJoint)
+
+writeTranform()
+
+
+
 
 
 class ObjSequnceConvertor:
@@ -108,25 +174,26 @@ class ObjSequnceConvertor:
         if minDigitsRequired > digits:
             digits = minDigitsRequired
 
-        for i in range(len(frames)):
-            cmds.currentTime(frames[i])
 
-            index = i
-            if renumberFrame:
-                index = i + startNumber
+        # for i in range(len(frames)):
+        #     cmds.currentTime(frames[i])
 
-            outputPath = exportDir + "/" + exportBaseName + str(index).zfill(
-                digits) + ".obj"
+        #     index = i
+        #     if renumberFrame:
+        #         index = i + startNumber
 
-            print(outputPath)
+        #     outputPath = exportDir + "/" + exportBaseName + str(index).zfill(
+        #         digits) + ".obj"
 
-            cmds.file(
-                outputPath,
-                force=True,
-                options="groups=1;ptgroups=1;materials=1;smoothing=1;normals=1",
-                type="OBJexport",
-                preserveReferences=True,
-                exportSelected=True)
+        #     print(outputPath)
+
+        #     cmds.file(
+        #         outputPath,
+        #         force=True,
+        #         options="groups=1;ptgroups=1;materials=1;smoothing=1;normals=1",
+        #         type="OBJexport",
+        #         preserveReferences=True,
+        #         exportSelected=True)
 
     def __findRootJoint(self, skinedTransform):
         # this will return deformed mesh and original mesh of the fbx
